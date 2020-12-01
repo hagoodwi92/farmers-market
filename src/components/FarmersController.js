@@ -6,27 +6,37 @@ import MarketList from './MarketList.js';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 
-class FarmersControl extends React.Component {
+class FarmersController extends React.Component {
   constructor(props) {
     super(props);
     console.log(props);
     this.state = {
-      marketVisibleOnPage: true,
-      produceVisibleOnPage: false
+      // marketVisibleOnPage: true,
+      // produceVisibleOnPage: false
     };
   }
 
   handleMarketClick = () => {
-    this.setState({ marketVisibleOnPage: true, produceVisibleOnPage: false})
+    // this.setState({ marketVisibleOnPage: true, produceVisibleOnPage: false})
+    const { dispatch } = this.props;
+    const action = {
+      type: 'TOGGLE_MARKET'
+    }
+    dispatch(action);
   }
 
   handleProduceClick = () => {
-    this.setState({ marketVisibleOnPage: false, produceVisibleOnPage: true})
+    // this.setState({ marketVisibleOnPage: false, produceVisibleOnPage: true})
+    const { dispatch } = this.props;
+    const action = {
+      type: 'TOGGLE_PRODUCE'
+    }
+    dispatch(action);
   }
 
   render() {
     let currentVisibleState = null;
-    if (this.state.produceVisibleOnPage){
+    if (this.props.produceVisibleOnPage){
       currentVisibleState = <ProduceList />;
     } else {
       currentVisibleState = <MarketList />;
@@ -44,7 +54,7 @@ class FarmersControl extends React.Component {
 
 }
 
-TicketControl.propTypes = {
+FarmersController.propTypes = {
   marketVisibleOnPage: PropTypes.bool,
   produceVisibleOnPage: PropTypes.bool
 };
@@ -57,6 +67,6 @@ const mapStateToProps = state => {
 }
 
 
-TicketControl = connect(mapStateToProps)(TicketControl);
+FarmersController = connect(mapStateToProps)(FarmersController);
 
-export default FarmersControl;
+export default FarmersController;
